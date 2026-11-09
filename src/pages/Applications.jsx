@@ -4,12 +4,14 @@ import { useApplications } from "../context/ApplicationContext.jsx";
 import ApplicationCard from "../components/applications/ApplicationCard.jsx";
 import ApplicationFilters from "../components/applications/ApplicationFilters.jsx";
 import EmptyState from "../components/ui/EmptyState.jsx";
+import ConfirmModal from "../components/ui/ConfirmModal.jsx";
 
 function Applications(){
     const {applications,updateApplication,deleteApplication}=useApplications();
     const[search,setSearch]=useState("");
     const[statusFilter,setStatusFilter]=useState("All");
     const[sortBy,setSortBy]=useState("newest");
+    const[deleteId,setDeleteId]=useState(null);
 
     const visibleApplications=useMemo(()=>{
         const text=search.trim().toLowerCase();
@@ -29,6 +31,11 @@ function Applications(){
 
     function handleStatusChange(id,status){
         updateApplication(id,{status});
+    }
+    const appToDelete=applications.find((app)=>app.id===deleteId);
+    function confirmDelete(){
+        deleteApplication(deleteId);
+        setDeleteId(null);
     }
     return(
         <div>
@@ -73,13 +80,20 @@ function Applications(){
                         key={app.id}
                         application={app}
                         onStatusChange={handleStatusChange}
-                        onDelete={deleteApplication}
+                        onDelete={setDeleteId}
                         />
                     ))}
                 </div>
             )}
             </>
         )}
+        <ConfirmModal
+        isOpen={deleteId!==null}
+        title="Delete application?"
+        message={`This will permanently delete ${appToDelete?.company} and all its notes.`}
+        onConfirm={confirmDelete}
+        onCancel={()=>setDeleteId(null)}
+        />
         </div>
        
     );
