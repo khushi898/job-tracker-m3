@@ -21,7 +21,7 @@ function App(){
       <Route path="/applications" element={<Applications/>}/>
       <Route path="/applications/new" element={<ApplicationForm/>}/>
       <Route path="/applications/:id" element={<ApplicationDetail/>}/>
-      <Route path="/application/:id/edit" element={<ApplicationForm/>}/>
+      <Route path="/applications/:id/edit" element={<ApplicationForm/>}/>
       <Route path="/explore" element={<ExploreJobs/>}/>
       <Route path="*" element={<NotFound/>}/>
     </Route>
