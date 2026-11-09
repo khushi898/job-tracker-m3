@@ -1,4 +1,5 @@
 import {NavLink} from "react-router-dom";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const links=[
     {to: "/dashboard",label:"Dashboard"},
@@ -7,6 +8,7 @@ const links=[
 ];
 
 function Navbar(){
+    const {user,logout}=useAuth();
     return(
         <nav className="bg-white shadow">
             <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-4">
@@ -27,7 +29,14 @@ function Navbar(){
                     </NavLink>
                     ))}
                 </div>
+                <div className="ml-auto flex items-center gap-3">
+                    <span className="text-gray-600">Hi, {user}</span>
+                    <button onClick={logout} className="px-3 py-1 rounded border hover:bg-gray-100">
+                        Log Out
+                    </button>
+                </div>
             </div>
+
         </nav>
     )
 }
