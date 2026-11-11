@@ -6,7 +6,7 @@ import StatCard from "../components/ui/StatCard.jsx";
 import EmptyState from "../components/ui/EmptyState.jsx";
 
 function Dashboard(){
-    const {useApplications}=useApplications();
+    const {applications}=useApplications();
     const {user}=useAuth();
 
     const stats=useMemo(()=>{
